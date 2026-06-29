@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+enum NotificationType {
+  CONTACT
+  SYSTEM
+}
+
+model AdminUser {
+  id                String             @id @default(cuid())
+  email             String             @unique
+  passwordHash      String
+  name              String
+  createdAt         DateTime           @default(now())
+  pushSubscriptions PushSubscription[]
+}
+
+model PushSubscription {
+  id        String    @id @default(cuid())
+  adminId   String
+  endpoint  String    @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime  @default(now())
+  admin     AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  type      NotificationType
+  title     String
+  message   String
+  read      Boolean          @default(false)
+  link      String?
+  createdAt DateTime         @default(now())
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  longDesc    String
+  price       Float
+  duration    String
+  level       String
+  features    String
+  image       String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Recipe {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String
+  ingredients  String
+  instructions String
+  calories     Int
+  protein      Int
+  carbs        Int
+  fat          Int
+  prepTime     String
+  servings     Int      @default(1)
+  category     String
+  image        String?
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  content   String
+  rating    Int      @default(5)
+  image     String?
+  createdAt DateTime @default(now())
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  category    String
+  image       String?
+  publishedAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id         String        @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  subject    String
+  message    String
+  sourcePlan String?
+  sourcePage String?
+  status     ContactStatus @default(NEW)
+  createdAt  DateTime      @default(now())
+}
+
+model Service {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  order       Int    @default(0)
+}
+
+model Challenge {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  duration    String
+  price       Float    @default(0)
+  image       String?
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
