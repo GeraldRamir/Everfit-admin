@@ -5,6 +5,8 @@ import { ExternalLink, Pencil, Trash2, X } from "lucide-react";
 import { BlogPreviewBody, type BlogDetailItem } from "@/lib/blog-preview";
 import { formatDate } from "@/lib/utils";
 
+export type { BlogDetailItem };
+
 export default function BlogDetailModal({
   post,
   commercialUrl,
