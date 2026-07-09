@@ -5,6 +5,9 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const posts = await prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } });
+  const posts = await prisma.blogPost.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
+  });
   return jsonResponse(posts);
 }

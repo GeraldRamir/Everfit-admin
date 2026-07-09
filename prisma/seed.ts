@@ -186,158 +186,199 @@ async function main() {
   await prisma.recipe.createMany({
     data: [
       {
-        title: "Bowl Proteico de Pollo y Quinoa",
-        slug: "bowl-proteico-pollo-quinoa",
+        title: "Tostadas Francesas Altas en Proteína",
+        slug: "tostadas-francesas-altas-en-proteina",
         description:
-          "Un bowl completo, colorido y lleno de proteína ideal para post-entreno.",
+          "Tostadas francesas altas en proteína, ideales para un desayuno saturante y rico en macros.",
         ingredients: JSON.stringify([
-          "150g pechuga de pollo",
-          "80g quinoa cocida",
-          "1/2 aguacate",
-          "1 taza espinacas",
-          "1/2 taza tomate cherry",
-          "2 cdas hummus",
-          "Limón, sal y pimienta",
+          "3 rebanadas de pan bajo en carbohidratos",
+          "4 claras de huevo",
+          "½ scoop (15 g) de proteína en polvo",
+          "1 cucharadita de vainilla",
+          "Endulzante sin calorías",
+          "Canela",
         ]),
         instructions: JSON.stringify([
-          "Cocina la quinoa según instrucciones del paquete.",
-          "Sazona el pollo con sal, pimienta y pimentón. Cocina a la plancha 5-6 min por lado.",
-          "Arma el bowl: base de espinacas, quinoa, pollo en rodajas.",
-          "Agrega aguacate, tomates y hummus.",
-          "Exprime limón y sirve.",
+          "Bate las claras con la proteína en polvo, la vainilla, el endulzante y la canela.",
+          "Remoja cada rebanada de pan en la mezcla.",
+          "Cocina en sartén antiadherente a fuego medio hasta dorar por ambos lados.",
+          "Sirve caliente. Si divides en 3 tostadas, cada una aporta aprox. 103 kcal.",
         ]),
-        calories: 485,
-        protein: 42,
-        carbs: 38,
-        fat: 18,
-        prepTime: "25 min",
-        servings: 1,
-        category: "Almuerzo",
+        calories: 310,
+        protein: 34,
+        carbs: 25,
+        fat: 6,
+        fiber: null,
+        notes:
+          "Si se divide en 3 tostadas, cada una aporta aproximadamente: 103 kcal · 11.3 g proteína · 8.3 g carbohidratos · 2 g grasa.",
+        prepTime: "15 min",
+        servings: 3,
+        category: "Desayuno",
         image:
-          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+          "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&q=80",
         featured: true,
       },
       {
-        title: "Overnight Oats de Proteína",
-        slug: "overnight-oats-proteina",
+        title: "Pancakes de Proteína",
+        slug: "pancakes-de-proteina",
         description:
-          "Desayuno preparado la noche anterior, cremoso y con 30g de proteína.",
+          "Pancakes esponjosos altos en proteína, perfectos para desayuno o post-entreno.",
         ingredients: JSON.stringify([
-          "1/2 taza avena",
-          "1 scoop proteína vainilla",
-          "3/4 taza leche de almendras",
-          "1 cdta mantequilla de maní",
-          "1/2 plátano en rodajas",
-          "1 cdta semillas de chía",
-          "Canela al gusto",
+          "½ taza (40 g) de avena",
+          "1 scoop (30 g) de proteína",
+          "Un chorrito (60 ml) de leche de almendra",
+          "1 plátano mediano",
+          "2 huevos",
+          "Vainilla",
+          "Canela",
+          "Sal",
+          "Polvo para hornear",
         ]),
         instructions: JSON.stringify([
-          "Mezcla avena, proteína, leche y chía en un frasco.",
-          "Refrigera toda la noche (mínimo 6 horas).",
-          "Por la mañana, agrega plátano, mantequilla de maní y canela.",
-          "Disfruta frío o a temperatura ambiente.",
+          "Licua o mezcla todos los ingredientes hasta obtener una masa homogénea.",
+          "Calienta una sartén antiadherente a fuego medio.",
+          "Vierte porciones de masa y cocina hasta que aparezcan burbujas; voltea y cocina el otro lado.",
+          "Rinde aproximadamente 4 pancakes.",
         ]),
-        calories: 380,
-        protein: 30,
+        calories: 493,
+        protein: 39,
         carbs: 45,
-        fat: 10,
-        prepTime: "5 min + reposo",
+        fat: 17,
+        fiber: null,
+        notes:
+          "Si salen 4 pancakes, cada uno tendría aproximadamente: 123 kcal · 9.8 g proteína · 11.3 g carbohidratos · 4.2 g grasa.",
+        prepTime: "20 min",
+        servings: 4,
+        category: "Desayuno",
+        image:
+          "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
+        featured: true,
+      },
+      {
+        title: "Avena Proteica con Chocolate y Mantequilla de Maní",
+        slug: "avena-proteica-chocolate-mantequilla-mani",
+        description:
+          "Avena cremosa con proteína, chocolate y mantequilla de maní para un desayuno energético.",
+        ingredients: JSON.stringify([
+          "50 g de avena",
+          "1 scoop de proteína",
+          "1 cucharada (16 g) de mantequilla de maní",
+          "1 taza de leche de almendra sin azúcar",
+          "Canela",
+          "Stevia",
+        ]),
+        instructions: JSON.stringify([
+          "Calienta la leche de almendra en una olla a fuego medio.",
+          "Agrega la avena y cocina hasta que espese.",
+          "Retira del fuego, incorpora la proteína, la mantequilla de maní, la canela y la stevia.",
+          "Mezcla bien y sirve.",
+        ]),
+        calories: 410,
+        protein: 35,
+        carbs: 37,
+        fat: 13,
+        fiber: null,
+        notes: null,
+        prepTime: "10 min",
         servings: 1,
         category: "Desayuno",
+        image:
+          "https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=800&q=80",
+        featured: true,
+      },
+      {
+        title: "Parfait de Pudding de Chía",
+        slug: "parfait-pudding-de-chia",
+        description:
+          "Pudding de chía ligero y fibroso. Los toppings (yogur, fruta y mantequilla de maní) no están incluidos en los macros.",
+        ingredients: JSON.stringify([
+          "2 cucharadas (28 g) de semillas de chía",
+          "½ taza (120 ml) de leche de almendra sin azúcar",
+          "1 cucharadita de jarabe de maple sin azúcar o stevia",
+          "Canela al gusto",
+          "Un toque de extracto de vainilla",
+        ]),
+        instructions: JSON.stringify([
+          "Mezcla todos los ingredientes.",
+          "Refrigera durante al menos 4 horas o toda la noche.",
+          "Agrega los toppings de tu preferencia antes de servir.",
+        ]),
+        calories: 160,
+        protein: 6,
+        carbs: 14,
+        fat: 10,
+        fiber: 10,
+        notes:
+          "Los toppings (yogur griego, manzana, fresas y mantequilla de maní) NO están incluidos en estos macros.",
+        prepTime: "5 min + reposo",
+        servings: 1,
+        category: "Snack",
         image:
           "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80",
         featured: true,
       },
       {
-        title: "Wrap Fit de Atún y Vegetales",
-        slug: "wrap-fit-atun",
+        title: "Wrap Alto en Proteína",
+        slug: "wrap-alto-en-proteina",
         description:
-          "Opción rápida, práctica y alta en proteína para llevar al trabajo o gym.",
+          "Wrap rápido y muy alto en proteína con atún, claras y requesón.",
         ingredients: JSON.stringify([
-          "1 tortilla integral grande",
-          "1 lata atún en agua",
-          "2 cdas yogur griego",
-          "Lechuga, tomate, pepino",
-          "1/4 aguacate",
-          "Mostaza y limón",
+          "2 tortillas bajas en carbohidratos",
+          "¼ taza de requesón (cottage cheese)",
+          "1 lata o paquete de atún en agua (aprox. 70 g escurrido)",
+          "3 claras de huevo",
         ]),
         instructions: JSON.stringify([
-          "Mezcla atún escurrido con yogur, mostaza y limón.",
-          "Calienta ligeramente la tortilla.",
-          "Coloca lechuga, mezcla de atún y vegetales.",
-          "Agrega aguacate, enrolla firmemente y corta por la mitad.",
+          "Mezcla el atún, las claras y el requesón.",
+          "Cocina la mezcla hasta que las claras estén listas.",
+          "Calienta las tortillas.",
+          "Rellena y enrolla.",
         ]),
-        calories: 320,
-        protein: 35,
-        carbs: 28,
-        fat: 12,
-        prepTime: "10 min",
-        servings: 1,
-        category: "Snack",
+        calories: 345,
+        protein: 46,
+        carbs: 20,
+        fat: 7,
+        fiber: null,
+        notes:
+          "Si la receta rinde 2 wraps, cada uno aporta aproximadamente: 173 kcal · 23 g proteína · 10 g carbohidratos · 3.5 g grasa.",
+        prepTime: "15 min",
+        servings: 2,
+        category: "Almuerzo",
         image:
           "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&q=80",
         featured: true,
       },
       {
-        title: "Smoothie Verde Energético",
-        slug: "smoothie-verde-energetico",
+        title: "Avena Nocturna con Matcha",
+        slug: "avena-nocturna-con-matcha",
         description:
-          "Bebida refrescante pre-entreno con carbohidratos y micronutrientes.",
+          "Overnight oats con matcha, chía y yogur griego. Preparación la noche anterior.",
         ingredients: JSON.stringify([
-          "1 plátano congelado",
-          "1 taza espinacas",
-          "1/2 taza piña",
-          "1 taza leche de coco light",
-          "1 cdta miel",
-          "Hielo al gusto",
+          "½ taza (40 g) de avena tradicional",
+          "1 cucharada (14 g) de semillas de chía",
+          "1 cucharadita de matcha",
+          "¼ taza de yogur griego natural sin grasa",
+          "⅔ taza de leche de almendra sin azúcar",
+          "1 cucharada de jarabe de maple sin azúcar",
+          "½ cucharada de extracto de vainilla",
         ]),
         instructions: JSON.stringify([
-          "Agrega todos los ingredientes a la licuadora.",
-          "Licua hasta obtener consistencia cremosa.",
-          "Sirve inmediatamente.",
+          "Mezcla todos los ingredientes.",
+          "Refrigera durante toda la noche o por al menos 2 horas.",
+          "Agrega fruta o tus toppings favoritos antes de consumir.",
         ]),
-        calories: 210,
-        protein: 4,
-        carbs: 48,
-        fat: 3,
-        prepTime: "5 min",
+        calories: 305,
+        protein: 21,
+        carbs: 33,
+        fat: 11,
+        fiber: 9,
+        notes: null,
+        prepTime: "5 min + reposo",
         servings: 1,
-        category: "Bebida",
+        category: "Desayuno",
         image:
-          "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=800&q=80",
-        featured: false,
-      },
-      {
-        title: "Brownies Fit de Cacao",
-        slug: "brownies-fit-cacao",
-        description:
-          "Postre saludable sin culpa, perfecto para antojos dulces.",
-        ingredients: JSON.stringify([
-          "2 plátanos maduros",
-          "1/4 taza cacao en polvo",
-          "1/2 taza avena molida",
-          "2 huevos",
-          "1 scoop proteína chocolate",
-          "1 cdta polvo de hornear",
-          "Chips de chocolate oscuro",
-        ]),
-        instructions: JSON.stringify([
-          "Precalienta horno a 180°C.",
-          "Licua plátanos, huevos y proteína.",
-          "Mezcla con cacao, avena y polvo de hornear.",
-          "Vierte en molde engrasado, agrega chips.",
-          "Hornea 20-25 minutos. Deja enfriar antes de cortar.",
-        ]),
-        calories: 145,
-        protein: 8,
-        carbs: 18,
-        fat: 5,
-        prepTime: "30 min",
-        servings: 8,
-        category: "Postre",
-        image:
-          "https://images.unsplash.com/photo-1606313564200-e75d5e30476e?w=800&q=80",
-        featured: false,
+          "https://images.unsplash.com/photo-1495214783159-3503fd1b572d?w=800&q=80",
+        featured: true,
       },
     ],
   });
@@ -381,8 +422,19 @@ async function main() {
         slug: "5-razones-empezar-entrenar",
         excerpt:
           "No esperes al lunes, al mes que viene o al año nuevo. Tu cuerpo y tu mente te lo agradecerán desde el primer día.",
-        content:
-          "Entrenar no es solo sobre verse bien, es sobre sentirte poderosa. Mejora tu salud cardiovascular, reduce el estrés, aumenta tu confianza y crea disciplina que trasciende al gym. Cada sesión es una inversión en la mejor versión de ti. En Everfit creemos que el mejor momento para empezar fue ayer, el segundo mejor es ahora.",
+        content: `Entrenar no es solo sobre verse bien, es sobre sentirte poderosa. Cada sesión es una inversión en la mejor versión de ti.
+
+## Beneficios que notarás desde la primera semana
+
+- Mejora tu salud cardiovascular y tu energía diaria
+- Reduce el estrés y mejora tu calidad de sueño
+- Aumenta tu confianza y disciplina fuera del gym
+
+## La mentalidad Everfit
+
+> El mejor momento para empezar fue ayer. El segundo mejor es ahora.
+
+Crea hábitos pequeños pero constantes. No necesitas entrenar dos horas: 30 minutos bien ejecutados cambian tu día. Celebra cada victoria, por mínima que parezca.`,
         category: "Motivación",
         image:
           "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80",
@@ -392,8 +444,19 @@ async function main() {
         slug: "superar-miedo-gym",
         excerpt:
           "El gym puede intimidar, pero con la mentalidad correcta y una guía adecuada, se convierte en tu lugar favorito.",
-        content:
-          "Es normal sentirse observada o no saber qué hacer. Empieza con un plan claro, horarios menos concurridos y recuerda: todos empezaron desde cero. Enfócate en tu progreso, no en compararte. Usa audífonos, lleva tu botella de agua y celebra cada pequeña victoria.",
+        content: `Es normal sentirse observada o no saber qué hacer. Todos — incluso quienes hoy parecen expertos — empezaron desde cero.
+
+## Consejos para tu primer mes
+
+- Lleva un plan claro de entrenamiento (no improvises en la sala)
+- Elige horarios menos concurridos si te ayuda a concentrarte
+- Enfócate en tu progreso, no en compararte con nadie más
+
+## Tu kit mental
+
+Usa audífonos, lleva tu botella de agua y celebra cada pequeña victoria. El gym deja de ser intimidante cuando entiendes que es tu espacio de crecimiento.
+
+> La incomodidad inicial es señal de que estás saliendo de tu zona de confort — y eso es exactamente lo que buscamos.`,
         category: "Mindset",
         image:
           "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
@@ -403,8 +466,19 @@ async function main() {
         slug: "meal-prep-clave-alimentacion",
         excerpt:
           "Preparar tus comidas con anticipación te ahorra tiempo, dinero y te mantiene en el camino hacia tus objetivos.",
-        content:
-          "Dedica 2 horas el domingo a preparar proteínas, carbohidratos y vegetales. Usa contenedores porcionados, congela lo que no comerás en 3 días y varía tus condimentos para no aburrirte. Un buen meal prep es la diferencia entre cumplir tus macros o caer en comida rápida.",
+        content: `Un buen meal prep es la diferencia entre cumplir tus macros o caer en comida rápida cuando el día se complica.
+
+## Plan de 2 horas el domingo
+
+- Cocina proteínas en lote (pollo, pescado, huevos)
+- Prepara carbohidratos base (arroz, camote, avena)
+- Lava y corta vegetales para la semana
+
+## Tips para no aburrirte
+
+Usa contenedores porcionados, congela lo que no comerás en 3 días y varía condimentos y salsas fit. La variedad mantiene la adherencia.
+
+> Preparar hoy es regalarte disciplina mañana.`,
         category: "Nutrición",
         image:
           "https://images.unsplash.com/photo-1498837167922-ddd27525cd34?w=800&q=80",

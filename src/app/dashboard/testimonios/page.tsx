@@ -1,4 +1,3 @@
-import { MessageSquare, Star, Users } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import ContentSectionClient from "@/components/ContentSectionClient";
 
@@ -17,28 +16,28 @@ export default async function TestimoniosAdminPage() {
           label: "Testimonios",
           value: items.length,
           hint: "En home",
-          icon: MessageSquare,
+          icon: "messageSquare",
           iconBg: "bg-everfit-cream text-everfit-wine",
         },
         {
           label: "Rating promedio",
           value: avgRating,
           hint: "De 5 estrellas",
-          icon: Star,
+          icon: "star",
           iconBg: "bg-everfit-orange/10 text-everfit-orange",
         },
         {
           label: "5 estrellas",
           value: items.filter((t) => t.rating === 5).length,
           hint: "Valoración máxima",
-          icon: Star,
+          icon: "star",
           iconBg: "bg-everfit-wine/10 text-everfit-wine",
         },
         {
           label: "Clientas",
           value: items.length,
           hint: "Historias reales",
-          icon: Users,
+          icon: "users",
           iconBg: "bg-everfit-cream text-everfit-wine",
         },
       ]}
@@ -59,7 +58,7 @@ export default async function TestimoniosAdminPage() {
         { key: "content", label: "Testimonio", multiline: true },
         { key: "createdAt", label: "Registrado" },
       ]}
-      emptyIcon={MessageSquare}
+      emptyIcon="messageSquare"
       emptyTitle="No hay testimonios"
       emptyDescription="Los testimonios de clientas aparecerán aquí."
       hasFeaturedFilter={false}

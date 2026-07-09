@@ -9,6 +9,6 @@ export async function OPTIONS() {
 export async function GET(_req: Request, { params }: Props) {
   const { slug } = await params;
   const post = await prisma.blogPost.findUnique({ where: { slug } });
-  if (!post) return jsonResponse({ error: "Not found" }, { status: 404 });
+  if (!post || !post.published) return jsonResponse({ error: "Not found" }, { status: 404 });
   return jsonResponse(post);
 }

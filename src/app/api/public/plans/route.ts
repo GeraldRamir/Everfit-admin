@@ -5,6 +5,9 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const plans = await prisma.plan.findMany({ orderBy: { price: "asc" } });
+  const plans = await prisma.plan.findMany({
+    where: { published: true },
+    orderBy: { price: "asc" },
+  });
   return jsonResponse(plans);
 }

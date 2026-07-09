@@ -35,8 +35,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <div className="hidden flex-1 flex-col justify-between bg-gradient-to-br from-everfit-charcoal via-everfit-wine to-everfit-charcoal p-12 text-white lg:flex">
+    <div className="flex min-h-screen bg-[var(--admin-bg)]">
+      <div
+        className="hidden flex-1 flex-col justify-between p-12 text-white lg:flex"
+        style={{
+          background:
+            "linear-gradient(145deg, #1a1210 0%, #6b1515 48%, #2a1614 100%)",
+        }}
+      >
         <EverfitLogo />
         <div>
           <h1 className="font-display text-4xl font-bold leading-tight">
@@ -51,21 +57,21 @@ export default function LoginPage() {
         <p className="text-sm text-white/40">Everfit Admin · Panel interno</p>
       </div>
 
-      <div className="flex flex-1 items-center justify-center bg-[#f3f4f6] p-6">
-        <div className="w-full max-w-md rounded-[1.5rem] border border-gray-100 bg-white p-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+      <div className="flex flex-1 items-center justify-center bg-[var(--admin-bg)] p-6">
+        <div className="w-full max-w-md rounded-[1.5rem] border border-[var(--admin-border)] bg-[var(--admin-surface)] p-8 shadow-[var(--admin-shadow)] ring-1 ring-black/5 dark:ring-white/5">
           <div className="mb-8 lg:hidden">
             <EverfitLogo theme="light" />
           </div>
           <h2 className="font-display text-2xl font-bold text-everfit-charcoal">Iniciar sesión</h2>
-          <p className="mt-2 text-sm text-gray-500">Accede al panel de administración</p>
+          <p className="mt-2 text-sm text-[var(--admin-muted)]">Accede al panel de administración</p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-[var(--admin-text)]">
                 Email
               </label>
               <div className="relative">
-                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--admin-muted-soft)]" />
                 <input
                   id="email"
                   type="email"
@@ -77,11 +83,11 @@ export default function LoginPage() {
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-[var(--admin-text)]">
                 Contraseña
               </label>
               <div className="relative">
-                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--admin-muted-soft)]" />
                 <input
                   id="password"
                   type="password"

@@ -62,6 +62,7 @@ model Plan {
   features    String
   image       String?
   featured    Boolean  @default(false)
+  published   Boolean  @default(true)
   createdAt   DateTime @default(now())
 }
 
@@ -76,11 +77,14 @@ model Recipe {
   protein      Int
   carbs        Int
   fat          Int
+  fiber        Int?
+  notes        String?
   prepTime     String
   servings     Int      @default(1)
   category     String
   image        String?
   featured     Boolean  @default(false)
+  published    Boolean  @default(true)
   createdAt    DateTime @default(now())
 }
 
@@ -102,6 +106,7 @@ model BlogPost {
   content     String
   category    String
   image       String?
+  published   Boolean  @default(true)
   publishedAt DateTime @default(now())
 }
 
@@ -135,6 +140,7 @@ model Challenge {
   price       Float    @default(0)
   image       String?
   featured    Boolean  @default(false)
+  published   Boolean  @default(true)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
 }

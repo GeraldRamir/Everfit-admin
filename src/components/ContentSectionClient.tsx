@@ -5,16 +5,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ExternalLink, Star, X } from "lucide-react";
 import AdminPageHeader from "@/components/layout/AdminPageHeader";
-import StatCards, { type StatCardItem } from "@/components/ui/StatCards";
+import AdminRowActions, { AdminStatusBadge } from "@/components/ui/AdminRowActions";
+import StatCards, {
+  resolveStatIcon,
+  type StatCardItem,
+  type StatIconName,
+} from "@/components/ui/StatCards";
 import SectionToolbar from "@/components/ui/SectionToolbar";
 import EmptyState from "@/components/ui/EmptyState";
 import { cn, formatDate, formatPrice } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
+import { useAdminPreferences } from "@/components/AdminPreferencesProvider";
 
 export type ContentColumn = {
   key: string;
   label: string;
-  render?: "text" | "featured" | "price" | "date" | "rating" | "truncate";
+  render?: "text" | "featured" | "status" | "price" | "date" | "rating" | "truncate";
 };
 
 export type DetailField = {
@@ -27,6 +32,7 @@ export type ContentItem = {
   id: string;
   slug?: string;
   featured?: boolean;
+  published?: boolean;
   [key: string]: unknown;
 };
 
@@ -41,6 +47,14 @@ function renderCell(item: ContentItem, col: ContentColumn) {
       <span className="admin-pill-active">Destacado</span>
     ) : (
       <span className="text-gray-400">—</span>
+    );
+  }
+  if (type === "status") {
+    return (
+      <AdminStatusBadge
+        published={item.published !== false}
+        featured={Boolean(item.featured)}
+      />
     );
   }
   if (type === "price") {
@@ -81,6 +95,9 @@ export default function ContentSectionClient({
   emptyDescription,
   commercialBasePath,
   toggleFeaturedApi,
+  adminApiBase,
+  supportsPublished = false,
+  supportsDelete = false,
   hasFeaturedFilter = true,
 }: {
   title: string;
@@ -89,35 +106,69 @@ export default function ContentSectionClient({
   items: ContentItem[];
   columns: ContentColumn[];
   detailFields: DetailField[];
-  emptyIcon: LucideIcon;
+  emptyIcon: StatIconName;
   emptyTitle: string;
   emptyDescription?: string;
   commercialBasePath?: string;
   toggleFeaturedApi?: string;
+  adminApiBase?: string;
+  supportsPublished?: boolean;
+  supportsDelete?: boolean;
   hasFeaturedFilter?: boolean;
 }) {
+  const EmptyIcon = resolveStatIcon(emptyIcon);
   const router = useRouter();
+  const { prefs } = useAdminPreferences();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [page, setPage] = useState(1);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [toggling, setToggling] = useState(false);
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const apiBase = adminApiBase ?? toggleFeaturedApi;
+  const showRowActions = Boolean(apiBase);
 
   const commercialUrl = process.env.NEXT_PUBLIC_COMMERCIAL_SITE_URL ?? "http://localhost:3000";
 
   const filters = useMemo(() => {
-    if (!hasFeaturedFilter) return undefined;
-    const featured = items.filter((i) => i.featured).length;
-    return [
+    const list: { id: string; label: string; count: number }[] = [
       { id: "all", label: "Todos", count: items.length },
-      { id: "featured", label: "Destacados", count: featured },
     ];
-  }, [items, hasFeaturedFilter]);
+    if (supportsPublished) {
+      list.push(
+        {
+          id: "published",
+          label: "Publicados",
+          count: items.filter((i) => i.published !== false).length,
+        },
+        {
+          id: "draft",
+          label: "Borradores",
+          count: items.filter((i) => i.published === false).length,
+        }
+      );
+    }
+    if (hasFeaturedFilter) {
+      list.push({
+        id: "featured",
+        label: "Destacados",
+        count: items.filter((i) => i.featured).length,
+      });
+    }
+    return list.length > 1 ? list : undefined;
+  }, [items, hasFeaturedFilter, supportsPublished]);
 
   const filtered = useMemo(() => {
     let result = items;
     if (filter === "featured") {
       result = result.filter((i) => i.featured);
+    }
+    if (filter === "published") {
+      result = result.filter((i) => i.published !== false);
+    }
+    if (filter === "draft") {
+      result = result.filter((i) => i.published === false);
     }
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -142,16 +193,46 @@ export default function ContentSectionClient({
     setPage(1);
   }
 
-  async function toggleFeatured() {
-    if (!selected || !toggleFeaturedApi) return;
+  async function toggleFeatured(item: ContentItem) {
+    if (!apiBase) return;
+    setBusyId(item.id);
     setToggling(true);
-    await fetch(`${toggleFeaturedApi}/${selected.id}`, {
+    await fetch(`${apiBase}/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ featured: !selected.featured }),
+      body: JSON.stringify({ featured: !item.featured }),
     });
     setToggling(false);
+    setBusyId(null);
     router.refresh();
+  }
+
+  async function togglePublished(item: ContentItem) {
+    if (!apiBase) return;
+    setBusyId(item.id);
+    await fetch(`${apiBase}/${item.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ published: !(item.published ?? true) }),
+    });
+    setBusyId(null);
+    router.refresh();
+  }
+
+  async function handleDelete(item: ContentItem) {
+    if (!apiBase) return;
+    const label = String(item.title ?? item.name ?? "elemento");
+    if (prefs.confirmDeletes && !confirm(`¿Eliminar "${label}"?`)) return;
+    setBusyId(item.id);
+    await fetch(`${apiBase}/${item.id}`, { method: "DELETE" });
+    setBusyId(null);
+    setSelectedId(null);
+    router.refresh();
+  }
+
+  async function toggleFeaturedSelected() {
+    if (!selected || !apiBase) return;
+    await toggleFeatured(selected);
   }
 
   return (
@@ -171,7 +252,7 @@ export default function ContentSectionClient({
 
         {filtered.length === 0 ? (
           <div className="p-6">
-            <EmptyState icon={emptyIcon} title={emptyTitle} description={emptyDescription} />
+            <EmptyState icon={EmptyIcon} title={emptyTitle} description={emptyDescription} />
           </div>
         ) : (
           <>
@@ -182,6 +263,7 @@ export default function ContentSectionClient({
                     {columns.map((col) => (
                       <th key={col.key}>{col.label}</th>
                     ))}
+                    {showRowActions && <th className="text-right">Acciones</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -202,6 +284,30 @@ export default function ContentSectionClient({
                           {renderCell(item, col)}
                         </td>
                       ))}
+                      {showRowActions && (
+                        <td className="text-right">
+                          <AdminRowActions
+                            published={item.published !== false}
+                            featured={Boolean(item.featured)}
+                            busy={busyId === item.id}
+                            commercialUrl={commercialUrl}
+                            commercialPath={
+                              commercialBasePath && item.slug
+                                ? `${commercialBasePath}/${item.slug}`
+                                : undefined
+                            }
+                            onTogglePublished={
+                              supportsPublished ? () => togglePublished(item) : undefined
+                            }
+                            onToggleFeatured={
+                              toggleFeaturedApi || hasFeaturedFilter
+                                ? () => toggleFeatured(item)
+                                : undefined
+                            }
+                            onDelete={supportsDelete ? () => handleDelete(item) : undefined}
+                          />
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
@@ -249,7 +355,7 @@ export default function ContentSectionClient({
             <button
               type="button"
               onClick={() => setSelectedId(null)}
-              className="rounded-xl p-2 text-gray-400 hover:bg-gray-100 hover:text-everfit-wine"
+              className="rounded-xl p-2 text-[var(--admin-muted-soft)] hover:bg-[var(--admin-surface-soft)] hover:text-everfit-accent"
               aria-label="Cerrar detalle"
             >
               <X size={18} />
@@ -301,7 +407,7 @@ export default function ContentSectionClient({
             {toggleFeaturedApi && (
               <button
                 type="button"
-                onClick={toggleFeatured}
+                onClick={toggleFeaturedSelected}
                 disabled={toggling}
                 className={selected.featured ? "btn-admin-outline" : "btn-admin-primary"}
               >

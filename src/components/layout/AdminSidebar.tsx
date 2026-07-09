@@ -92,7 +92,7 @@ export default function AdminSidebar({
     >
       <div
         className={cn(
-          "flex shrink-0 items-center border-b border-gray-100",
+          "flex shrink-0 items-center border-b border-[var(--admin-border-soft)]",
           isCollapsed ? "flex-col gap-3 px-3 py-4" : "justify-between px-4 py-5"
         )}
       >
@@ -117,7 +117,7 @@ export default function AdminSidebar({
         <button
           type="button"
           onClick={toggleCollapsed}
-          className="rounded-xl p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-everfit-wine"
+          className="rounded-xl p-2 text-[var(--admin-muted-soft)] transition-colors hover:bg-[var(--admin-surface-soft)] hover:text-everfit-accent"
           aria-label={isCollapsed ? "Expandir menú" : "Colapsar menú"}
           aria-expanded={!isCollapsed}
         >
@@ -173,7 +173,7 @@ export default function AdminSidebar({
 
       <div
         className={cn(
-          "shrink-0 space-y-1 border-t border-gray-100",
+          "shrink-0 space-y-1 border-t border-[var(--admin-border-soft)]",
           isCollapsed ? "p-2" : "p-4"
         )}
       >
@@ -199,7 +199,7 @@ export default function AdminSidebar({
 
         <div
           className={cn(
-            "mt-2 flex rounded-2xl bg-everfit-cream/60",
+            "admin-user-chip",
             isCollapsed
               ? "flex-col items-center gap-2 p-2"
               : "items-center gap-3 p-3"
@@ -214,13 +214,13 @@ export default function AdminSidebar({
           {!isCollapsed && (
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold text-everfit-charcoal">{adminName}</p>
-              <p className="text-xs text-gray-500">Administradora</p>
+              <p className="text-xs text-[var(--admin-muted)]">Administradora</p>
             </div>
           )}
           <button
             type="button"
             onClick={logout}
-            className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-white hover:text-everfit-wine"
+            className="rounded-lg p-1.5 text-[var(--admin-muted-soft)] transition-colors hover:bg-[var(--admin-surface)] hover:text-everfit-accent"
             aria-label="Cerrar sesión"
             title={isCollapsed ? "Cerrar sesión" : undefined}
           >

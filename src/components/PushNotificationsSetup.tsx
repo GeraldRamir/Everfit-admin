@@ -135,22 +135,22 @@ export default function PushNotificationsSetup() {
   if (Notification.permission === "denied" || dismissed) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm rounded-2xl border border-everfit-wine/15 bg-white p-4 shadow-xl shadow-everfit-wine/10">
+    <div className="fixed bottom-4 right-4 z-50 max-w-sm rounded-2xl border border-everfit-wine/20 bg-[var(--admin-surface)] p-4 shadow-xl">
       <button
         type="button"
         onClick={dismissBanner}
-        className="absolute right-3 top-3 text-gray-400 transition hover:text-gray-600"
+        className="absolute right-3 top-3 text-[var(--admin-muted-soft)] transition hover:text-[var(--admin-muted)]"
         aria-label="Cerrar"
       >
         <X className="h-4 w-4" />
       </button>
       <div className="flex items-start gap-3 pr-6">
-        <div className="rounded-full bg-everfit-cream p-2 text-everfit-wine">
+        <div className="rounded-full bg-everfit-cream p-2 text-everfit-accent">
           <Bell className="h-4 w-4" />
         </div>
         <div>
-          <p className="mb-1 text-sm font-semibold text-everfit-wine">Notificaciones push</p>
-          <p className="mb-3 text-xs leading-relaxed text-gray-600">
+          <p className="mb-1 text-sm font-semibold text-everfit-accent">Notificaciones push</p>
+          <p className="mb-3 text-xs leading-relaxed text-[var(--admin-muted)]">
             Recibe alertas al instante cuando llegue una nueva solicitud de servicio desde la web
             comercial.
           </p>

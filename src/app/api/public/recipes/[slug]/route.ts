@@ -9,6 +9,6 @@ export async function OPTIONS() {
 export async function GET(_req: Request, { params }: Props) {
   const { slug } = await params;
   const recipe = await prisma.recipe.findUnique({ where: { slug } });
-  if (!recipe) return jsonResponse({ error: "Not found" }, { status: 404 });
+  if (!recipe || !recipe.published) return jsonResponse({ error: "Not found" }, { status: 404 });
   return jsonResponse(recipe);
 }

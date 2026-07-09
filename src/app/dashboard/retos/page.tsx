@@ -1,4 +1,3 @@
-import { Flame, ShoppingBag, Star, TrendingUp } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import ContentSectionClient from "@/components/ContentSectionClient";
 import { formatPrice } from "@/lib/utils";
@@ -17,28 +16,28 @@ export default async function RetosAdminPage() {
           label: "Total retos",
           value: retos.length,
           hint: "En tienda",
-          icon: Flame,
+          icon: "flame",
           iconBg: "bg-everfit-orange/10 text-everfit-orange",
         },
         {
           label: "Destacados",
           value: featured,
           hint: "En home y sección retos",
-          icon: Star,
+          icon: "star",
           iconBg: "bg-everfit-cream text-everfit-wine",
         },
         {
           label: "Precio promedio",
           value: retos.length ? formatPrice(revenue / retos.length) : "—",
           hint: "Por reto",
-          icon: ShoppingBag,
+          icon: "shoppingBag",
           iconBg: "bg-everfit-wine/10 text-everfit-wine",
         },
         {
           label: "Catálogo total",
           value: formatPrice(revenue),
           hint: "Suma de precios",
-          icon: TrendingUp,
+          icon: "trendingUp",
           iconBg: "bg-everfit-cream text-everfit-wine",
         },
       ]}
@@ -48,7 +47,7 @@ export default async function RetosAdminPage() {
         { key: "duration", label: "Duración" },
         { key: "price", label: "Precio", render: "price" },
         { key: "order", label: "Orden" },
-        { key: "featured", label: "Estado", render: "featured" },
+        { key: "featured", label: "Estado", render: "status" },
       ]}
       detailFields={[
         { key: "description", label: "Descripción", multiline: true },
@@ -57,10 +56,13 @@ export default async function RetosAdminPage() {
         { key: "order", label: "Orden de visualización" },
         { key: "createdAt", label: "Creado" },
       ]}
-      emptyIcon={Flame}
+      emptyIcon="flame"
       emptyTitle="No hay retos publicados"
       emptyDescription="Los retos de la tienda aparecerán aquí."
       commercialBasePath="/retos"
+      adminApiBase="/api/admin/challenges"
+      supportsPublished
+      supportsDelete
       toggleFeaturedApi="/api/admin/challenges"
     />
   );

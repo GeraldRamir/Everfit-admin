@@ -7,8 +7,44 @@
   --everfit-wine-dark: #4a0e0e;
   --everfit-orange: #e63946;
   --everfit-cream: #f5efe6;
+  --everfit-cream-dark: #ede4d8;
   --everfit-charcoal: #1a1a1a;
+  --everfit-accent: #6b1515;
   --admin-bg: #f3f4f6;
+  --admin-surface: #ffffff;
+  --admin-surface-soft: #f9fafb;
+  --admin-border: #e5e7eb;
+  --admin-border-soft: #f3f4f6;
+  --admin-text: #1a1a1a;
+  --admin-muted: #6b7280;
+  --admin-muted-soft: #9ca3af;
+  --admin-hover: rgba(107, 21, 21, 0.06);
+  --admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --admin-overlay: rgba(26, 26, 26, 0.45);
+  --admin-ring: rgba(107, 21, 21, 0.18);
+}
+
+html.dark {
+  /* Warm wine-tinted night palette — keeps brand, softens contrast */
+  --everfit-wine: #9e3a3a;
+  --everfit-wine-dark: #7a2a2a;
+  --everfit-orange: #f07178;
+  --everfit-cream: #2c221f;
+  --everfit-cream-dark: #382c28;
+  --everfit-charcoal: #f4ebe4;
+  --everfit-accent: #f0b4b0;
+  --admin-bg: #141110;
+  --admin-surface: #1c1816;
+  --admin-surface-soft: #27211e;
+  --admin-border: #3a322e;
+  --admin-border-soft: #2f2825;
+  --admin-text: #f4ebe4;
+  --admin-muted: #b5a79f;
+  --admin-muted-soft: #8a7c74;
+  --admin-hover: rgba(158, 58, 58, 0.16);
+  --admin-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --admin-overlay: rgba(8, 6, 5, 0.72);
+  --admin-ring: rgba(240, 180, 176, 0.2);
 }
 
 html,
@@ -18,17 +54,59 @@ body {
 
 body {
   font-family: var(--font-inter), system-ui, sans-serif;
-  color: var(--everfit-charcoal);
+  color: var(--admin-text);
   background: var(--admin-bg);
+}
+
+/* Bridge hardcoded light-gray utilities used across older screens */
+html.dark .text-gray-400,
+html.dark .text-gray-500 {
+  color: var(--admin-muted-soft) !important;
+}
+
+html.dark .text-gray-600,
+html.dark .text-gray-700 {
+  color: var(--admin-muted) !important;
+}
+
+html.dark .bg-white {
+  background-color: var(--admin-surface) !important;
+}
+
+html.dark .bg-gray-50,
+html.dark .bg-gray-50\/80 {
+  background-color: var(--admin-surface-soft) !important;
+}
+
+html.dark .bg-gray-100,
+html.dark .hover\:bg-gray-100:hover {
+  background-color: var(--admin-surface-soft) !important;
+}
+
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-gray-300 {
+  border-color: var(--admin-border) !important;
 }
 
 @layer components {
   .admin-shell {
-    @apply flex h-dvh overflow-hidden bg-[#f3f4f6];
+    @apply flex h-dvh overflow-hidden;
+    background:
+      radial-gradient(1200px 500px at 0% -10%, rgba(158, 58, 58, 0.12), transparent 55%),
+      radial-gradient(900px 400px at 100% 0%, rgba(240, 180, 176, 0.05), transparent 50%),
+      var(--admin-bg);
+  }
+
+  html:not(.dark) .admin-shell {
+    background: var(--admin-bg);
   }
 
   .admin-sidebar {
-    @apply flex h-full shrink-0 flex-col border-r border-gray-200/80 bg-white transition-[width] duration-300 ease-in-out;
+    @apply flex h-full shrink-0 flex-col transition-[width] duration-300 ease-in-out;
+    background: color-mix(in srgb, var(--admin-surface) 92%, transparent);
+    border-right: 1px solid var(--admin-border);
+    backdrop-filter: blur(8px);
   }
 
   .admin-sidebar-expanded {
@@ -44,7 +122,10 @@ body {
   }
 
   .admin-topbar {
-    @apply flex flex-wrap items-center gap-4 border-b border-gray-200/80 bg-white px-6 py-4 lg:px-8;
+    @apply flex flex-wrap items-center gap-4 px-6 py-4 lg:px-8;
+    background: color-mix(in srgb, var(--admin-surface) 88%, transparent);
+    border-bottom: 1px solid var(--admin-border);
+    backdrop-filter: blur(10px);
   }
 
   .admin-content {
@@ -52,31 +133,60 @@ body {
   }
 
   .admin-nav-link {
-    @apply flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-gray-600 transition-colors;
+    @apply flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition-colors;
+    color: var(--admin-muted);
   }
 
   .admin-nav-link-active {
-    @apply bg-everfit-cream text-everfit-wine shadow-sm;
+    @apply shadow-sm;
+    background: color-mix(in srgb, var(--everfit-cream) 88%, var(--everfit-wine));
+    color: var(--everfit-accent);
   }
 
-  .admin-nav-link-idle {
-    @apply hover:bg-gray-50 hover:text-everfit-wine;
+  html.dark .admin-nav-link-active {
+    background: color-mix(in srgb, var(--everfit-wine) 22%, var(--admin-surface-soft));
+    color: var(--everfit-accent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--everfit-accent) 18%, transparent);
+  }
+
+  .admin-nav-link-idle:hover {
+    background: var(--admin-surface-soft);
+    color: var(--everfit-accent);
   }
 
   .btn-admin-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-everfit-wine px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-everfit-wine-dark;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold text-white transition-colors;
+    background: var(--everfit-wine);
+  }
+
+  .btn-admin-primary:hover {
+    background: var(--everfit-wine-dark);
   }
 
   .btn-admin-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-everfit-wine transition-colors hover:border-everfit-wine/20 hover:bg-everfit-cream/40;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-semibold transition-colors;
+    border: 1px solid var(--admin-border);
+    background: var(--admin-surface);
+    color: var(--everfit-accent);
+  }
+
+  .btn-admin-outline:hover {
+    border-color: color-mix(in srgb, var(--everfit-wine) 40%, var(--admin-border));
+    background: var(--admin-hover);
   }
 
   .admin-card {
-    @apply rounded-[1.25rem] border border-gray-100 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)];
+    @apply rounded-[1.25rem] p-6;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border-soft);
+    box-shadow: var(--admin-shadow);
   }
 
   .admin-card-flat {
-    @apply rounded-[1.25rem] border border-gray-100 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)];
+    @apply rounded-[1.25rem];
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border-soft);
+    box-shadow: var(--admin-shadow);
   }
 
   .admin-stat-card {
@@ -88,7 +198,20 @@ body {
   }
 
   .admin-input {
-    @apply w-full rounded-2xl border border-gray-200 bg-gray-50/80 px-4 py-2.5 text-sm outline-none transition-[border-color,box-shadow,background-color] placeholder:text-gray-400 focus:border-everfit-wine/30 focus:bg-white focus:ring-2 focus:ring-everfit-wine/10;
+    @apply w-full rounded-2xl px-4 py-2.5 text-sm outline-none transition-[border-color,box-shadow,background-color];
+    border: 1px solid var(--admin-border);
+    background: var(--admin-surface-soft);
+    color: var(--admin-text);
+  }
+
+  .admin-input::placeholder {
+    color: var(--admin-muted-soft);
+  }
+
+  .admin-input:focus {
+    border-color: color-mix(in srgb, var(--everfit-wine) 45%, var(--admin-border));
+    background: var(--admin-surface);
+    box-shadow: 0 0 0 2px var(--admin-ring);
   }
 
   .admin-search {
@@ -104,50 +227,130 @@ body {
   }
 
   .admin-table thead {
-    @apply border-b border-gray-100 bg-gray-50/80;
+    border-bottom: 1px solid var(--admin-border-soft);
+    background: var(--admin-surface-soft);
   }
 
   .admin-table th {
-    @apply px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-500;
+    @apply px-5 py-3.5 text-xs font-semibold uppercase tracking-wider;
+    color: var(--admin-muted);
   }
 
   .admin-table td {
-    @apply px-5 py-4 text-gray-700;
+    @apply px-5 py-4;
+    color: var(--admin-muted);
+  }
+
+  html.admin-compact .admin-table th,
+  html.admin-compact .admin-table td {
+    @apply px-4 py-2.5;
   }
 
   .admin-table tbody tr {
-    @apply border-b border-gray-50 transition-colors last:border-0 hover:bg-everfit-cream/20;
+    @apply transition-colors last:border-0;
+    border-bottom: 1px solid var(--admin-border-soft);
+  }
+
+  .admin-table tbody tr:hover {
+    background: var(--admin-hover);
   }
 
   .badge-status-new {
-    @apply inline-flex rounded-full border border-everfit-orange/20 bg-everfit-orange/10 px-3 py-1 text-xs font-semibold text-everfit-orange;
+    @apply inline-flex rounded-full border px-3 py-1 text-xs font-semibold;
+    border-color: color-mix(in srgb, var(--everfit-orange) 28%, transparent);
+    background: color-mix(in srgb, var(--everfit-orange) 14%, transparent);
+    color: var(--everfit-orange);
   }
 
   .badge-status-read {
     @apply inline-flex rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700;
   }
 
+  html.dark .badge-status-read {
+    @apply border-sky-900/40 bg-sky-950/35 text-sky-300;
+  }
+
   .badge-status-replied {
     @apply inline-flex rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700;
   }
 
+  html.dark .badge-status-replied {
+    @apply border-emerald-900/40 bg-emerald-950/30 text-emerald-300;
+  }
+
   .badge-status-archived {
-    @apply inline-flex rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-semibold text-gray-600;
+    @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold;
+    border: 1px solid var(--admin-border);
+    background: var(--admin-surface-soft);
+    color: var(--admin-muted);
   }
 
   .admin-pill-active {
-    @apply inline-flex rounded-full border border-everfit-wine/15 bg-everfit-cream px-3 py-1 text-xs font-semibold text-everfit-wine;
+    @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold;
+    border: 1px solid color-mix(in srgb, var(--everfit-wine) 28%, transparent);
+    background: color-mix(in srgb, var(--everfit-cream) 92%, transparent);
+    color: var(--everfit-accent);
   }
 
   .admin-filter-pill {
-    @apply inline-flex items-center rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-everfit-wine/20 hover:text-everfit-wine;
+    @apply inline-flex items-center rounded-2xl px-4 py-2 text-sm font-medium transition-colors;
+    border: 1px solid var(--admin-border);
+    background: var(--admin-surface);
+    color: var(--admin-muted);
+  }
+
+  .admin-filter-pill:hover {
+    border-color: color-mix(in srgb, var(--everfit-wine) 35%, var(--admin-border));
+    color: var(--everfit-accent);
   }
 
   .admin-filter-pill-active {
-    @apply border-everfit-wine/20 bg-everfit-cream text-everfit-wine shadow-sm;
+    @apply shadow-sm;
+    border-color: color-mix(in srgb, var(--everfit-wine) 35%, var(--admin-border));
+    background: color-mix(in srgb, var(--everfit-cream) 90%, transparent);
+    color: var(--everfit-accent);
+  }
+
+  html.dark .admin-filter-pill-active {
+    background: color-mix(in srgb, var(--everfit-wine) 18%, var(--admin-surface-soft));
   }
 
   .admin-detail-panel {
     @apply admin-card;
+  }
+
+  .admin-modal-panel {
+    @apply w-full max-w-3xl rounded-2xl shadow-2xl;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    color: var(--admin-text);
+  }
+
+  .admin-modal-overlay {
+    background: var(--admin-overlay);
+    backdrop-filter: blur(4px);
+  }
+
+  .admin-toggle {
+    @apply relative h-7 w-12 shrink-0 rounded-full transition-colors;
+  }
+
+  .admin-toggle-knob {
+    @apply absolute top-0.5 left-0.5 h-6 w-6 rounded-full shadow transition-transform;
+    background: #ffffff;
+  }
+
+  html.dark .admin-toggle-knob {
+    background: #f4ebe4;
+  }
+
+  .admin-user-chip {
+    @apply mt-2 flex rounded-2xl;
+    background: color-mix(in srgb, var(--everfit-cream) 75%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--everfit-wine) 10%, transparent);
+  }
+
+  html.dark .admin-user-chip {
+    background: color-mix(in srgb, var(--everfit-wine) 14%, var(--admin-surface-soft));
   }
 }

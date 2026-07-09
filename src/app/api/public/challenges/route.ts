@@ -5,6 +5,9 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const challenges = await prisma.challenge.findMany({ orderBy: { order: "asc" } });
+  const challenges = await prisma.challenge.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+  });
   return jsonResponse(challenges);
 }

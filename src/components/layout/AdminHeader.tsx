@@ -1,5 +1,8 @@
+"use client";
+
 import { Bell, Search } from "lucide-react";
 import Link from "next/link";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 
 function getGreeting() {
   const hour = new Date().getHours();
@@ -23,13 +26,13 @@ export default function AdminHeader({
         <h1 className="font-display text-xl font-bold text-everfit-charcoal lg:text-2xl">
           {getGreeting()}, {firstName}!
         </h1>
-        <p className="text-sm text-gray-500">Panel Everfit by Mich</p>
+        <p className="text-sm text-[var(--admin-muted)]">Panel Everfit by Mich</p>
       </div>
 
       <div className="relative hidden flex-1 justify-center md:flex">
         <Search
           size={18}
-          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--admin-muted-soft)]"
           aria-hidden="true"
         />
         <input
@@ -41,9 +44,11 @@ export default function AdminHeader({
       </div>
 
       <div className="flex items-center gap-3">
+        <ThemeToggleButton />
+
         <Link
           href="/dashboard/notificaciones"
-          className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-gray-200 bg-white text-gray-600 transition-colors hover:border-everfit-wine/20 hover:text-everfit-wine"
+          className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-[var(--admin-border)] bg-[var(--admin-surface)] text-[var(--admin-muted)] transition-colors hover:border-everfit-wine/30 hover:text-everfit-accent"
           aria-label="Notificaciones"
         >
           <Bell size={18} />
@@ -54,7 +59,7 @@ export default function AdminHeader({
           )}
         </Link>
 
-        <div className="hidden items-center gap-2 rounded-2xl border border-gray-200 bg-white py-1.5 pl-1.5 pr-3 sm:flex">
+        <div className="hidden items-center gap-2 rounded-2xl border border-[var(--admin-border)] bg-[var(--admin-surface)] py-1.5 pl-1.5 pr-3 sm:flex">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-everfit-wine font-display text-xs font-bold text-white">
             {adminName
               .split(" ")
@@ -65,7 +70,7 @@ export default function AdminHeader({
           </div>
           <div className="hidden lg:block">
             <p className="text-sm font-semibold text-everfit-charcoal">{adminName}</p>
-            <p className="text-xs text-gray-500">Admin</p>
+            <p className="text-xs text-[var(--admin-muted)]">Admin</p>
           </div>
         </div>
       </div>

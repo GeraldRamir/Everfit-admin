@@ -1,17 +1,19 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
         everfit: {
-          wine: "#6B1515",
-          "wine-dark": "#4A0E0E",
-          orange: "#E63946",
-          cream: "#F5EFE6",
-          "cream-dark": "#EDE4D8",
-          charcoal: "#1A1A1A",
+          wine: "var(--everfit-wine)",
+          "wine-dark": "var(--everfit-wine-dark)",
+          orange: "var(--everfit-orange)",
+          cream: "var(--everfit-cream)",
+          "cream-dark": "var(--everfit-cream-dark)",
+          charcoal: "var(--everfit-charcoal)",
+          accent: "var(--everfit-accent)",
         },
       },
       fontFamily: {

@@ -5,6 +5,9 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const recipes = await prisma.recipe.findMany({ orderBy: { createdAt: "desc" } });
+  const recipes = await prisma.recipe.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+  });
   return jsonResponse(recipes);
 }
